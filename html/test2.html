@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nastyanorm - Преобразуем рутину в ритуал</title>
+    <style>
+        /* Подключение шрифтов из папки fonts */
+        @font-face {
+            font-family: 'Paper';
+            src: url("../fonts/Paper.otf") format('woff2'),
+                 url("../fonts/Paper.otf") format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'VicMo';
+            src: url("../fonts/VictorMono-Regular.otf") format('woff2'),
+                 url("../fonts/VictorMono-Regular.otf") format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'VicMoMe';
+            src: url("../fonts/VictorMono-Medium.otf") format('woff2'),
+                 url("../fonts/VictorMono-Medium.otf") format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+		
+		@font-face {
+            font-family: 'ViaodaLibre';
+            src: url("../fonts/ViaodaLibre-Regular.ttf") format('woff2'),
+                 url("../fonts/ViaodaLibre-Regular.ttf") format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --max-width: 94%;
+            --paper-bg: #efe6d7;
+            --muted: #8b8b8b;
+            --accent: #5a3f2b;
+            --surface: #faf9f7;
+            --text-dark: #333333;
+            --text-brown: #3a2b22;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'VicMoMe', sans-serif;
+            background-color: var(--surface);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmYWY5ZjciLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxIiBmaWxsPSJyZ2JhKDAwLDAsMCwwLjAyKSIvPjwvc3ZnPg==');
+            background-repeat: repeat;
+            background-size: auto;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .site-header {
+            padding: 0 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 20;
+        }
+
+        .header-inner {
+            width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-mini {
+            font-family: 'Paper', cursive;
+            font-size: 4.5vh;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon {
+            width: 26px;
+            height: 26px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .fav {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .cart {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='21' r='1'%3E%3C/circle%3E%3Ccircle cx='20' cy='21' r='1'%3E%3C/circle%3E%3Cpath d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 200px 0 60px;
+            background-color: transparent;
+        }
+
+        .hero-top-links {
+            font-family: 'VicMo', sans-serif;
+            font-size: 2.5vh;
+            color: #000000;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 200px; /* Увеличили расстояние между вкладками */
+        }
+
+        .hero-top-links a {
+            text-decoration: none;
+            color: #000000;
+            transition: color 0.3s;
+        }
+
+        .hero-top-links a:hover {
+            color: var(--accent);
+        }
+
+        .logo {
+            font-family: 'Paper', cursive;
+            font-size: 19vh;
+            line-height: 0.9;
+            margin: 0;
+            color: #000;
+        }
+
+        .slogan {
+            font-family: 'VicMo', sans-serif;
+            font-size: 2.5vh;
+            color: #000000;
+            margin-top: 12px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+
+        .product-image:first-child {
+            margin-left: 0;
+        }
+
+        /* Main categories - центрирование */
+        .main-categories {
+            margin: 0 0 130px 0;
+            text-align: center;
+        }
+
+        .main-categories ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .main-categories a {
+            display: block;
+            font-size: 6vh;
+			font-weight: 200;
+            color: var(--muted);
+            text-decoration: none;
+            padding: 20px 0;
+            letter-spacing: 0.04em;
+            transition: color 0.3s;
+            text-align: center;
+        }
+
+        .main-categories a:hover {
+            color: var(--accent);
+        }
+
+        /* Promo section */
+        .promo-paper {
+            background-color: var(--paper-bg);
+            background-image: url('../img/ctb.jpg');
+            background-size: cover;
+            text-align: center;
+            padding: 60px 0;
+            color: var(--text-brown);
+        }
+
+        .promo-title {
+            font-family: 'ViaodaLibre', serif;
+            font-weight: 400;
+            font-size: 16vh;
+        }
+
+        .promo-sub {
+            font-size: 2vh;
+            color: var(--text-brown);
+            margin-bottom: 150px;
+        }
+
+        .promo-items {
+            display: flex;
+            justify-content: center;
+            gap: 25%;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .promo-item {
+            width: 130px;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .promo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .promo-link {
+            display: block;
+            margin-top: 150px;
+            color: var(--accent);
+            font-size: 2vh;
+            text-decoration: none;
+            transition: text-decoration 0.3s;
+        }
+
+        .promo-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Popular products */
+
+        .popular {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .popular h3 {
+            font-family: 'VicMo', serif;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--text-brown);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 80%;
+            margin: 30px auto;
+            padding: 0;
+            list-style: none;
+        }
+
+        .product-card {
+            padding: 12px;
+            text-align: left;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        /* Добавили ховер-эффект для карточек */
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+		
+        .product-media {
+            position: relative;
+        }
+
+        .product-media img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            background-color: #f5f5f5;
+        }
+
+        .wish {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        /* Стили для активного состояния избранного */
+        .wish.active {
+            background-color: #ff4757;
+        }
+
+        .wish.active::after {
+            content: '1';
+        }
+		
+        .product-info {
+            font-family: 'VicMo', serif;
+            padding: 10px 0;
+        }
+
+        .product-title {
+            font-size: 2vh;
+            color: #3A3A3A;
+            margin: 8px 0 4px;
+        }
+
+        .product-price {
+            font-size: 2vh;
+            color: #3A3A3A;
+        }
+
+        .pagination {
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--muted);
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .pagination a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .pagination a.active {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .pagination a:hover {
+            color: var(--accent);
+        }
+
+        /* Collections */
+        .collections {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .collections h3 {
+            font-family: 'VicMo', serif;
+            font-size: 32px;
+            margin-bottom: 70px;
+            color: var(--text-brown);
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            width: 100%;
+            margin: 30px auto;
+        }
+
+        .collection {
+            position: relative;
+            display: block;
+            height: 260px;
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-decoration: none;
+            background-color: #e0e0e0;
+        }
+
+        .collection::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.15));
+        }
+
+        .collection .label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            z-index: 1;
+            font-size: 24px;
+        }
+
+        /* Footer */
+        .site-footer {
+            padding: 40px 0;
+            color: #555;
+            background: transparent;
+        }
+
+        .footer-inner {
+            width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .contacts, .company {
+            flex: 1;
+        }
+
+        .contacts {
+            text-align: left;
+        }
+
+        .company {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .contacts p, .company p {
+            margin-bottom: 8px;
+            font-size: 2vh;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #555;
+            border-radius: 50%;
+        }
+
+        .big-logo {
+            font-family: 'Paper', cursive;
+            font-size: 37vh;
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.9;
+            color: #000;
+        }
+
+        .legal-links {
+            display: flex;
+            justify-content: space-between;
+            width: var(--max-width);
+            margin: 20px auto 0;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .legal-links a {
+            color: #888;
+            text-decoration: none;
+        }
+
+        /* Responsive design */
+        @media (min-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 1199px) and (min-width: 900px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .promo-items {
+                gap: 80px;
+            }
+            
+            .hero-top-links {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 899px) and (min-width: 600px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .promo-items {
+                gap: 40px;
+            }
+            
+            .logo {
+                font-size: 80px;
+            }
+            
+            .main-categories a {
+                font-size: 24px;
+            }
+            
+            .big-logo {
+                font-size: 80px;
+            }
+            
+            .products-row {
+                max-width: 700px;
+            }
+            
+            .product-image {
+                width: 100px;
+                height: 100px;
+                margin-left: -15px;
+            }
+            
+            .hero-top-links {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 599px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .collections-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .promo-items {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .logo {
+                font-size: 60px;
+            }
+            
+            .main-categories a {
+                font-size: 20px;
+            }
+            
+            .footer-inner {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .contacts, .company {
+                text-align: center;
+                align-items: center;
+            }
+            
+            .big-logo {
+                font-size: 60px;
+            }
+            
+            .hero-top-links {
+                font-size: 11px;
+                gap: 15px;
+            }
+            
+            .products-row {
+                max-width: 500px;
+            }
+            
+            .product-image {
+                width: 80px;
+                height: 80px;
+                margin-left: -10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand-mini" href="/">nastyanorm</a>
+            <nav class="top-actions">
+                <button class="icon fav" aria-label="Избранное"></button>
+                <button class="icon cart" aria-label="Корзина"></button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-top-links">
+				<a>Каталог</a>
+                <a>Доставка и оплата</a>
+                <a>О бренде</a>
+			</div>
+            <h1 class="logo">nastyanorm</h1>
+            <p class="slogan">Преобразуем рутину в ритуал, а пространство — в уютную историю</p>
+            
+            <!-- Заменяем SVG на ряд из 6 изображений -->
+            <div class="products-row">
+                <img src="../img/1.svg" alt="Продукт 1" class="product-image">
+                <img src="../img/2.svg" alt="Продукт 2" class="product-image">
+                <img src="../img/3.svg" alt="Продукт 3" class="product-image">
+                <img src="../img/4.svg" alt="Продукт 4" class="product-image">
+                <img src="../img/5.svg" alt="Продукт 5" class="product-image">
+                <img src="../img/6.svg" alt="Продукт 6" class="product-image">
+            </div>
+        </section>
+
+        <nav class="main-categories">
+            <ul>
+                <li><a href="#">кружки</a></li>
+                <li><a href="#">тарелки</a></li>
+                <li><a href="#">мерч</a></li>
+                <li><a href="#">для благовоний</a></li>
+            </ul>
+        </nav>
+
+        <section class="promo-paper">
+            <h2 class="promo-title">insense</h2>
+            <p class="promo-sub">Форма. Гармония. Тактильность.</p>
+            <div class="promo-items">
+                <div class="promo-item"><img src="../img/h1.webp" alt="Продукт 1" class="product-item"></div>
+                <div class="promo-item"><img src="../img/h2.webp" alt="Продукт 1" class="product-item"></div>
+                <div class="promo-item"><img src="../img/h3.webp" alt="Продукт 1" class="product-item"></div>
+            </div>
+            <a class="promo-link" href="#">[ Посмотреть коллекцию ]</a>
+        </section>
+
+        <section class="popular">
+            <h3>Популярное</h3>
+            <div class="product-pages">
+                <!-- Страница 1 -->
+                <div class="product-page active" id="page1">
+                    <ul class="product-grid">
+                        <li class="product-card">
+                            <div class="product-media">
+                                <img src="../img/b1.webp" alt="Продукт 1" class="product-item">
+                                <button class="wish" aria-label="Добавить в избранное"></button>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">кружка леопард на чилле</h4>
+                                <div class="product-price">3 300 ₽</div>
+                            </div>
+                        </li>
+                        <li class="product-card">
+                            <div class="product-media">
+                                <img src="../img/b2.webp" alt="Продукт 1" class="product-item">
+                                <button class="wish" aria-label="Добавить в избранное"></button>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">тарелка леопард на чилле</h4>
+                                <div class="product-price">2 600 ₽</div>
+                            </div>
+                        </li>
+                        <li class="product-card">
+                            <div class="product-media">
+                                <img src="../img/b3.webp" alt="Продукт 1" class="product-item">
+                                <button class="wish" aria-label="Добавить в избранное"></button>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">кружка леопард на бизике</h4>
+                                <div class="product-price">3 300 ₽</div>
+                            </div>
+                        </li>
+                        <li class="product-card">
+                            <div class="product-media">
+                                <img src="../img/b4.webp" alt="Продукт 1" class="product-item">
+                                <button class="wish" aria-label="Добавить в избранное"></button>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">тарелка леопард на бизике</h4>
+                                <div class="product-price">2 600 ₽</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="pagination">
+                <a href="#" class="page-link active" data-page="1">1</a>
+                <a href="#" class="page-link" data-page="2">2</a>
+                <a href="#" class="next-link">→</a>
+            </div>
+        </section>
+
+        <section class="collections">
+            <h3>Подборки, которые вы ждали</h3>
+            <div class="collections-grid">
+                <a class="collection" href="#">
+                    <div class="label">НАЕДИНЕ С СОБОЙ</div>
+                </a>
+                <a class="collection" href="#">
+                    <div class="label">ДЛЯ БОДРОГО УТРА</div>
+                </a>
+                <a class="collection" href="#">
+                    <div class="label">ТОМАТИКИ</div>
+                </a>
+                <a class="collection" href="#">
+                    <div class="label">SALE</div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="legal-links">
+            
+        </div>
+        <div class="footer-inner">
+            <div class="contacts">
+                <p>[ Контакты ]</p>
+                <p>normnasta@gmail.com</p>
+                <p>+7(916)194-81-28 tg/wapp</p>
+                <p>адрес: ул. Красноказарменная, 12с38</p>
+				<a href="#">{ Оферта }</a>
+            </div>
+            <div class="company">
+                <div class="social-icons">
+                    <a href="#" aria-label="Telegram"></a>
+                    <a href="#" aria-label="VK"></a>
+                </div>
+                <p>ИП Гаврилова Анастасия Андреевна</p>
+                <p>ИНН 123456789012</p>
+                <p>ОГРНИП 123456789012345</p>
+				<a href="#">{ Политика обработки персональных данных }</a>
+            </div>
+        </div>
+        <div class="big-logo">nastyanorm</div>
+    </footer>
+
+    <script>
+        // Функционал добавления в избранное
+        document.querySelectorAll('.wish').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.classList.toggle('active');
+            });
+        });
+
+        // Функционал переключения страниц
+        document.querySelectorAll('.page-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Убираем активный класс у всех ссылок
+                document.querySelectorAll('.page-link').forEach(l => {
+                    l.classList.remove('active');
+                });
+                
+                // Добавляем активный класс текущей ссылке
+                this.classList.add('active');
+                
+                // Скрываем все страницы
+                document.querySelectorAll('.product-page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Показываем выбранную страницу
+                const pageId = 'page' + this.getAttribute('data-page');
+                document.getElementById(pageId).classList.add('active');
+            });
+        });
+
+        // Обработка кнопки "вперед"
+        document.querySelector('.next-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const currentActive = document.querySelector('.page-link.active');
+            const nextPage = parseInt(currentActive.getAttribute('data-page')) + 1;
+            
+            if (nextPage <= 2) {
+                document.querySelector(`.page-link[data-page="${nextPage}"]`).click();
+            }
+        });
+    </script>
+</body>
+</html>
