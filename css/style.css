@@ -439,19 +439,19 @@ body {
 
  /* Добавленные стили для изображений подборок */
         .collection-1 {
-            background-image: url('../img/P1.jpg');
+            background-image: url('../img/P1.JPG');
         }
         
         .collection-2 {
-            background-image: url('../img/P2.jpg');
+            background-image: url('../img/P2.JPG');
         }
         
         .collection-3 {
-            background-image: url('../img/P3.jpg');
+            background-image: url('../img/P3.jpeg');
         }
         
         .collection-4 {
-            background-image: url('../img/P4.jpg');
+            background-image: url('../img/P4.JPG');
         }
 
 
@@ -637,3 +637,4 @@ body {
     }
 
 }
+
