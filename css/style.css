@@ -439,19 +439,19 @@ body {
 
  /* Добавленные стили для изображений подборок */
         .collection-1 {
-            background-image: url('../img/1d.jpg');
+            background-image: url('../img/P1.jpg');
         }
         
         .collection-2 {
-            background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
+            background-image: url('../img/P2.jpg');
         }
         
         .collection-3 {
-            background-image: url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
+            background-image: url('../img/P3.jpg');
         }
         
         .collection-4 {
-            background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
+            background-image: url('../img/P4.jpg');
         }
 
 
@@ -635,4 +635,5 @@ body {
         height: 80px;
         margin-left: -10px;
     }
+
 }
